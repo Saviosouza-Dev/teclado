@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Primeiros Acordes no Teclado — Cartilha do Aluno</title>
+<meta name="description" content="Cartilha do aluno de teclado: partes do instrumento, postura, numeração dos dedos, teclas brancas e pretas, nome das notas, leitura de cifras, primeiros acordes, exercícios e acompanhamento.">
+<meta name="theme-color" content="#4A3220">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F2E9D3;
+    --paper-deep:#E9DCBC;
+    --ink:#3B2A1B;
+    --ink-soft:#6B5340;
+    --wood:#8C5A2E;
+    --wood-deep:#4A3220;
+    --wood-light:#C99A5B;
+    --brass:#B8862E;
+    --string:#D8B24C;
+    --sage:#4B6B4F;
+    --sage-deep:#33492F;
+    --rose:#8C3B2E;
+    --line:rgba(59,42,27,0.18);
+    --shadow: 4px 4px 0 rgba(59,42,27,0.10);
+    --radius: 4px;
+    /* teclas: o branco do papel e escuro demais para servir de tecla branca,
+       entao o teclado usa um marfim proprio, um tom acima do fundo */
+    --key-white:#FBF7EC;
+    --key-black:#3B2A1B;
+    --font-display: 'Fraunces', Georgia, serif;
+    --font-body: 'Work Sans', -apple-system, sans-serif;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--font-body);
+    line-height:1.55;
+    background-image:
+      radial-gradient(circle at 1px 1px, rgba(59,42,27,0.05) 1px, transparent 0);
+    background-size: 22px 22px;
+  }
+
+  h1,h2,h3,h4{font-family:var(--font-display); color:var(--wood-deep); margin:0 0 0.4em; font-weight:600;}
+  p{margin:0 0 1em;}
+  a{color:var(--wood-deep);}
+
+  /* ---------- Layout shell ---------- */
+  .shell{
+    display:grid;
+    grid-template-columns: 250px 1fr;
+    min-height:100vh;
+  }
+  @media (max-width:860px){
+    .shell{ grid-template-columns: 1fr; }
+  }
+
+  /* ---------- Sidebar ---------- */
+  .sidebar{
+    background:var(--wood-deep);
+    color:var(--paper);
+    padding:28px 18px 18px;
+    position:sticky;
+    top:0;
+    height:100vh;
+    overflow-y:auto;
+  }
+  @media (max-width:860px){
+    .sidebar{ position:static; height:auto; padding:16px; }
+  }
+  .brand{
+    display:flex; align-items:center; gap:10px;
+    margin-bottom:22px;
+    padding-bottom:16px;
+    border-bottom:1px solid rgba(242,233,211,0.18);
+  }
+  .brand svg{ width:34px; height:34px; flex-shrink:0; }
+  .brand .t{ font-family:var(--font-display); font-size:1.05rem; line-height:1.15; color:var(--paper);}
+  .brand .t small{ display:block; font-family:var(--font-body); font-size:0.7rem; color:var(--wood-light); font-weight:500; letter-spacing:0.02em; margin-top:2px;}
+
+  nav.chapters{ margin:0; padding:0; }
+  .chap-btn{
+    display:flex; align-items:center; gap:10px;
+    width:100%; text-align:left;
+    background:none; border:none; cursor:pointer;
+    color:var(--wood-light);
+    font-family:var(--font-body); font-size:0.88rem; font-weight:500;
+    padding:9px 10px; border-radius:3px;
+    margin-bottom:2px;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  .chap-btn .num{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:20px; height:20px; border-radius:50%;
+    border:1px solid rgba(242,233,211,0.35);
+    font-size:0.7rem; flex-shrink:0;
+  }
+  .chap-btn:hover{ background:rgba(242,233,211,0.08); color:var(--paper); }
+  .chap-btn.active{ background:var(--brass); color:var(--wood-deep); font-weight:700;}
+  .chap-btn.active .num{ border-color:var(--wood-deep); }
+  .chap-btn.seen .num{ border-color:var(--brass); background:rgba(184,134,46,0.32); color:var(--paper); }
+  .chap-btn.active.seen .num{ background:rgba(74,50,32,0.20); color:var(--wood-deep); border-color:var(--wood-deep); }
+
+  @media (max-width:860px){
+    nav.chapters{
+      display:flex; overflow-x:auto; gap:6px; padding-bottom:6px;
+      -webkit-overflow-scrolling:touch;
+    }
+    .chap-btn{ white-space:nowrap; width:auto; }
+  }
+
+  .side-actions{
+    margin-top:20px; padding-top:16px;
+    border-top:1px solid rgba(242,233,211,0.18);
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .side-btn{
+    display:inline-flex; align-items:center; justify-content:center; gap:8px;
+    background:none; border:1px solid rgba(242,233,211,0.35);
+    color:var(--paper);
+    font-family:var(--font-body); font-size:0.82rem; font-weight:600;
+    padding:9px 12px; border-radius:20px; cursor:pointer;
+    transition:background .15s ease, color .15s ease, border-color .15s ease;
+  }
+  .side-btn:hover{ background:var(--brass); color:var(--wood-deep); border-color:var(--brass); }
+  .side-hint{ font-size:0.68rem; color:var(--wood-light); text-align:center; line-height:1.6; }
+  .side-hint kbd{
+    font-family:var(--font-body); font-size:0.7rem;
+    border:1px solid rgba(242,233,211,0.30); border-radius:3px;
+    padding:0 4px; margin:0 1px;
+  }
+  @media (max-width:860px){
+    .side-actions{
+      flex-direction:row; align-items:center; justify-content:flex-start;
+      margin-top:12px; padding-top:12px;
+    }
+    .side-hint{ display:none; }
+  }
+
+  /* ---------- Main content ---------- */
+  main{ padding:0; display:flex; flex-direction:column; }
+  .content-scroll{ flex:1; padding:44px 56px 30px; max-width:920px; }
+  @media (max-width:860px){ .content-scroll{ padding:28px 20px 20px; } }
+
+  .eyebrow{ font-size:0.78rem; color:var(--rose); font-weight:600; margin-bottom:6px; }
+  .chapter{ display:none; animation: fade .3s ease; }
+  .chapter.active{ display:block; }
+  @keyframes fade{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);} }
+
+  .lead{ font-size:1.08rem; color:var(--ink-soft); max-width:60ch; }
+
+  .divider{ height:1px; background:var(--line); margin:28px 0; border:none; }
+
+  /* cards / boxes */
+  .card{
+    background:var(--paper-deep);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:20px 22px;
+    box-shadow:var(--shadow);
+  }
+  .grid-2{ display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+  .grid-3{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+  .grid-4{ display:grid; grid-template-columns:repeat(2,1fr); gap:16px; }
+  @media (max-width:760px){ .grid-2,.grid-3{ grid-template-columns:1fr; } }
+  /* o diagrama de teclado e largo: numa coluna so ele respira melhor,
+     e e nessa largura que o aluno consegue contar as teclas no celular */
+  @media (max-width:620px){
+    .grid-4{ grid-template-columns:1fr; }
+  }
+
+  /* qualquer SVG de conteudo encolhe junto com a tela em vez de vazar */
+  svg.fit{ max-width:100%; height:auto; display:block; }
+
+  .tip{
+    border-left:3px solid var(--sage);
+    background:rgba(75,107,79,0.08);
+    padding:12px 16px;
+    border-radius:0 4px 4px 0;
+    font-size:0.94rem;
+    margin:18px 0;
+  }
+  .tip b{ color:var(--sage-deep); }
+  .warn{
+    border-left:3px solid var(--rose);
+    background:rgba(140,59,46,0.07);
+    padding:12px 16px;
+    border-radius:0 4px 4px 0;
+    font-size:0.94rem;
+    margin:18px 0;
+  }
+  .warn b{ color:var(--rose); }
+
+  .diagram-wrap{
+    display:flex; gap:26px; align-items:flex-start; flex-wrap:wrap;
+    margin:20px 0;
+  }
+  .diagram-wrap svg{ flex-shrink:0; }
+  .legend{ flex:1; min-width:220px; }
+  .legend ol{ margin:0; padding-left:0; list-style:none; counter-reset:leg; }
+  .legend li{
+    counter-increment:leg;
+    display:flex; gap:10px; margin-bottom:11px; font-size:0.92rem;
+  }
+  .legend .pin{
+    flex-shrink:0; width:22px; height:22px; border-radius:50%;
+    background:var(--wood-deep); color:var(--paper);
+    display:flex; align-items:center; justify-content:center;
+    font-size:0.72rem; font-weight:700; font-family:var(--font-body);
+  }
+  .legend b{ color:var(--wood-deep); }
+
+  /* chord grid */
+  .chord-card{ text-align:center; }
+  .chord-card h3{ font-size:1.3rem; margin-bottom:2px;}
+  .chord-card .sub{ font-size:0.78rem; color:var(--ink-soft); margin-bottom:10px;}
+  .chord-card svg{ margin:0 auto; max-width:100%; height:auto; }
+  .chord-card .note{ font-size:0.74rem; margin-top:8px; color:var(--ink-soft); font-weight:600; }
+  .chord-card .note b{ color:var(--rose); }
+
+  /* legenda unica de simbolos, acima do grid de acordes */
+  .key-bar{
+    display:flex; flex-wrap:wrap; align-items:center; gap:8px 18px;
+    background:var(--paper-deep); border:1px solid var(--line);
+    border-radius:var(--radius); padding:10px 16px; margin:0 0 18px;
+    font-size:0.78rem; color:var(--ink-soft);
+  }
+  .key-bar b{ color:var(--wood-deep); }
+  .key-bar span{ display:inline-flex; align-items:center; gap:6px; }
+  .key-bar i{
+    width:18px; height:18px; border-radius:50%;
+    display:inline-flex; align-items:center; justify-content:center;
+    background:var(--brass); color:var(--wood-deep); font-style:normal;
+    font-size:0.66rem; font-weight:700; flex-shrink:0;
+  }
+  .key-bar i.sil{ background:none; border:1.5px solid var(--ink-soft); color:var(--ink-soft); }
+
+  /* nome das notas: Do = C, Re = D ... */
+  .pair-list{ list-style:none; margin:0; padding:0; }
+  .pair-list li{
+    display:flex; align-items:baseline; gap:8px; flex-wrap:wrap;
+    padding:10px 0; border-bottom:1px solid var(--line); font-size:0.93rem;
+  }
+  .pair-list li:last-child{ border-bottom:none; }
+  .pair-list .from{ font-weight:600; color:var(--wood-deep); min-width:3.5em; }
+  .pair-list .eq{ color:var(--sage); font-weight:700; }
+  .pair-list .to{ color:var(--ink-soft); }
+
+  /* exercises */
+  .ex-list{ list-style:none; margin:0; padding:0; counter-reset:ex; }
+  .ex-list li{
+    counter-increment:ex;
+    display:flex; gap:14px;
+    padding:14px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .ex-list li:last-child{ border-bottom:none; }
+  .ex-list .n{
+    flex-shrink:0; width:30px; height:30px; border-radius:50%;
+    background:var(--wood-deep); color:var(--paper);
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--font-display); font-weight:600; font-size:0.95rem;
+  }
+  .ex-list h4{ margin:0 0 3px; font-size:1rem; }
+  .ex-list p{ margin:0; font-size:0.92rem; color:var(--ink-soft); }
+
+  /* rhythm pattern */
+  .beat-row{ display:flex; gap:8px; margin:18px 0; flex-wrap:wrap; }
+  .beat{
+    flex:1; min-width:64px;
+    background:var(--paper-deep); border:1px solid var(--line);
+    border-radius:6px; padding:14px 8px; text-align:center;
+  }
+  .beat .syll{ font-family:var(--font-display); font-weight:600; font-size:1.15rem; color:var(--wood-deep); }
+  .beat .sub{ font-size:0.68rem; color:var(--ink-soft); margin-top:3px;}
+  .beat.esq .syll{ color:var(--rose); }
+  .beat.dir .syll{ color:var(--sage-deep); }
+
+  /* FAQ */
+  details.faq{
+    border-bottom:1px solid var(--line);
+    padding:14px 0;
+  }
+  details.faq summary{
+    cursor:pointer; font-family:var(--font-display); font-weight:600;
+    font-size:1.02rem; color:var(--wood-deep);
+    list-style:none;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  details.faq summary::-webkit-details-marker{ display:none; }
+  details.faq summary::after{
+    content:"+"; font-size:1.3rem; color:var(--brass); font-family:var(--font-body); font-weight:400;
+    transition:transform 0.2s ease;
+  }
+  details.faq[open] summary::after{ content:"–"; }
+  details.faq p{ margin-top:10px; font-size:0.94rem; color:var(--ink-soft); max-width:65ch; }
+
+  /* posture toggle */
+  .toggle-btn{
+    display:inline-flex; align-items:center; gap:6px;
+    background:var(--rose); color:var(--paper);
+    border:none; padding:9px 16px; border-radius:20px;
+    font-family:var(--font-body); font-weight:600; font-size:0.84rem;
+    cursor:pointer; margin-top:14px;
+  }
+  .toggle-btn:hover{ background:#752F24; }
+
+  /* footer nav */
+  .page-footer{
+    border-top:1px solid var(--line);
+    padding:18px 56px;
+    display:flex; justify-content:space-between; align-items:center;
+    background:var(--paper-deep);
+  }
+  @media (max-width:860px){ .page-footer{ padding:14px 20px; } }
+  .page-footer .prog{ font-size:0.8rem; color:var(--ink-soft); font-family:var(--font-body); }
+  .nav-btn{
+    background:var(--wood-deep); color:var(--paper);
+    border:none; padding:10px 18px; border-radius:20px;
+    font-family:var(--font-body); font-weight:600; font-size:0.85rem;
+    cursor:pointer; display:inline-flex; align-items:center; gap:6px;
+  }
+  .nav-btn:disabled{ opacity:0.35; cursor:default; }
+  .nav-btn:hover:not(:disabled){ background:var(--brass); color:var(--wood-deep); }
+
+  .cover{
+    display:flex; flex-direction:column; align-items:flex-start; justify-content:center;
+    min-height:60vh;
+  }
+  .cover .big{ font-size:clamp(2.1rem, 5vw, 3.2rem); line-height:1.05; max-width:12ch; }
+  .cover svg{ margin:0 0 26px; }
+
+  :focus-visible{ outline:2px solid var(--brass); outline-offset:2px; }
+
+  /* ---------- Impressao / PDF ---------- */
+  @media print{
+    @page{ margin:14mm 12mm; }
+    html,body{
+      background:#fff !important;
+      background-image:none !important;
+      color:#000;
+      font-size:10.5pt;
+    }
+    .shell{ display:block; min-height:0; }
+    .sidebar, .page-footer, .side-actions, .toggle-btn, .no-print{ display:none !important; }
+    main{ display:block; }
+    .content-scroll{ max-width:none; padding:0; }
+
+    /* a cartilha inteira sai numa tirada so, um capitulo por pagina */
+    .chapter{ display:block !important; animation:none !important; }
+    .chapter + .chapter{ break-before:page; page-break-before:always; }
+    .cover{ min-height:0; }
+
+    .card, .tip, .warn, .beat, .diagram-wrap, .ex-list li, details.faq, .chord-card, .key-bar{
+      break-inside:avoid; page-break-inside:avoid;
+    }
+    h1,h2,h3,h4{ break-after:avoid; page-break-after:avoid; }
+
+    /* economia de tinta: fundos chapados viram branco com borda */
+    .card, .beat, .key-bar{ background:#fff; box-shadow:none; border:1px solid #b9ab92; }
+    .tip, .warn{ background:#fff; }
+    .grid-4{ grid-template-columns:1fr 1fr; gap:10px; }
+    .grid-2{ grid-template-columns:1fr 1fr; }
+    .chord-card{ padding:14px 8px; }
+
+    details.faq summary::after{ content:"" !important; }
+    #posturaErrada{ display:block !important; }
+    a{ color:#000; text-decoration:none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar">
+    <div class="brand">
+      <svg viewBox="0 0 40 40" fill="none" aria-hidden="true" focusable="false">
+        <circle cx="20" cy="20" r="19" stroke="#D8B24C" stroke-width="1.4"/>
+        <rect x="9" y="13" width="22" height="14" rx="1.5" fill="none" stroke="#D8B24C" stroke-width="1.3"/>
+        <path d="M16.3 13 v14 M23.7 13 v14" stroke="#D8B24C" stroke-width="1.1"/>
+        <rect x="14" y="13" width="4.4" height="8" fill="#D8B24C"/>
+        <rect x="21.6" y="13" width="4.4" height="8" fill="#D8B24C"/>
+      </svg>
+      <div class="t">Meus Primeiros<br>Acordes<small>CARTILHA DO ALUNO · TECLADO</small></div>
+    </div>
+    <nav class="chapters" id="chapterNav" aria-label="Capítulos da cartilha"></nav>
+
+    <div class="side-actions">
+      <button class="side-btn" id="btnPrint" type="button">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false">
+          <path d="M4 6V2h8v4M4 12H2V7h12v5h-2M4 10h8v4H4z" stroke="currentColor" stroke-width="1.4"
+                stroke-linejoin="round" stroke-linecap="round"/>
+        </svg>
+        Imprimir / salvar em PDF
+      </button>
+      <p class="side-hint">
+        Imprime a cartilha <b>inteira</b>, um capítulo por página.<br>
+        Navegue com <kbd>&larr;</kbd> <kbd>&rarr;</kbd>
+      </p>
+    </div>
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <main>
+    <div class="content-scroll" id="contentScroll">
+
+      <!-- 0. CAPA -->
+      <section class="chapter" data-chapter="capa">
+        <div class="cover">
+          <svg width="120" height="90" viewBox="0 0 120 90" fill="none" aria-hidden="true" focusable="false">
+            <rect x="6" y="20" width="108" height="56" rx="3" fill="#FBF7EC" stroke="#8C5A2E" stroke-width="2"/>
+            <g stroke="#8C5A2E" stroke-width="1.5">
+              <path d="M21.4 20 v56 M36.9 20 v56 M52.3 20 v56 M67.7 20 v56 M83.1 20 v56 M98.6 20 v56"/>
+            </g>
+            <g fill="#4A3220">
+              <rect x="17" y="20" width="9" height="34" rx="1"/>
+              <rect x="32.5" y="20" width="9" height="34" rx="1"/>
+              <rect x="63.3" y="20" width="9" height="34" rx="1"/>
+              <rect x="78.7" y="20" width="9" height="34" rx="1"/>
+              <rect x="94.2" y="20" width="9" height="34" rx="1"/>
+            </g>
+            <path d="M6 20 h108" stroke="#B8862E" stroke-width="3"/>
+          </svg>
+          <div class="eyebrow">CARTILHA DO ALUNO · MÓDULO 1</div>
+          <h1 class="big">Bem-vindo ao seu primeiro passo no teclado.</h1>
+          <p class="lead">Este material é seu guia de consulta: volte aqui sempre que tiver dúvida sobre postura, nome das notas, números dos dedos ou acordes. Não é preciso decorar nada de uma vez — é para consultar, semana após semana.</p>
+          <div class="tip"><b>Como usar:</b> siga a ordem dos capítulos no índice. Cada um constrói sobre o anterior — pular etapas costuma criar dúvidas mais na frente.</div>
+        </div>
+      </section>
+
+      <!-- 1. PARTES -->
+      <section class="chapter" data-chapter="partes">
+        <div class="eyebrow">CAPÍTULO 1</div>
+        <h2>As partes do teclado</h2>
+        <p class="lead">Teclados mudam de modelo para modelo, mas os controles essenciais estão sempre lá — e com outros nomes na sua marca. Saber o que cada um faz evita aquele susto de "sumiu o som" no meio do estudo.</p>
+
+        <div class="diagram-wrap">
+          <svg class="fit" width="380" height="240" viewBox="0 0 380 240" fill="none" role="img" aria-labelledby="t-partes" xmlns="http://www.w3.org/2000/svg">
+            <title id="t-partes">Teclado visto de cima, com seis pontos numerados indicando painel de controle, visor, botões de timbre, botões de ritmo, controle de volume e as teclas.</title>
+            <!-- corpo -->
+            <rect x="10" y="30" width="360" height="150" rx="6" fill="#4A3220"/>
+            <!-- painel -->
+            <rect x="22" y="42" width="336" height="52" rx="4" fill="#3B2A1B"/>
+            <!-- visor -->
+            <rect x="150" y="52" width="80" height="32" rx="3" fill="#4B6B4F" stroke="#C99A5B" stroke-width="1.5"/>
+            <text x="190" y="72" font-family="Work Sans" font-size="12" font-weight="700" fill="#F2E9D3" text-anchor="middle">001</text>
+            <!-- botoes timbre -->
+            <g fill="#C99A5B">
+              <rect x="34" y="54" width="26" height="12" rx="2"/>
+              <rect x="66" y="54" width="26" height="12" rx="2"/>
+              <rect x="98" y="54" width="26" height="12" rx="2"/>
+            </g>
+            <!-- botoes ritmo -->
+            <g fill="#B8862E">
+              <rect x="256" y="54" width="26" height="12" rx="2"/>
+              <rect x="288" y="54" width="26" height="12" rx="2"/>
+              <rect x="320" y="54" width="26" height="12" rx="2"/>
+            </g>
+            <!-- volume -->
+            <rect x="34" y="74" width="90" height="8" rx="4" fill="#6B5340"/>
+            <circle cx="96" cy="78" r="7" fill="#D8B24C" stroke="#3B2A1B" stroke-width="1.5"/>
+            <!-- teclas brancas -->
+            <g>
+              <rect x="22" y="100" width="336" height="72" rx="2" fill="#FBF7EC" stroke="#3B2A1B" stroke-width="1.5"/>
+              <g stroke="#8C5A2E" stroke-width="1.2">
+                <path d="M46 100 v72 M70 100 v72 M94 100 v72 M118 100 v72 M142 100 v72 M166 100 v72 M190 100 v72 M214 100 v72 M238 100 v72 M262 100 v72 M286 100 v72 M310 100 v72 M334 100 v72"/>
+              </g>
+              <g fill="#3B2A1B">
+                <rect x="40" y="100" width="12" height="44" rx="1"/>
+                <rect x="64" y="100" width="12" height="44" rx="1"/>
+                <rect x="112" y="100" width="12" height="44" rx="1"/>
+                <rect x="136" y="100" width="12" height="44" rx="1"/>
+                <rect x="160" y="100" width="12" height="44" rx="1"/>
+                <rect x="208" y="100" width="12" height="44" rx="1"/>
+                <rect x="232" y="100" width="12" height="44" rx="1"/>
+                <rect x="280" y="100" width="12" height="44" rx="1"/>
+                <rect x="304" y="100" width="12" height="44" rx="1"/>
+                <rect x="328" y="100" width="12" height="44" rx="1"/>
+              </g>
+            </g>
+
+            <!-- pins -->
+            <g font-family="Work Sans" font-size="11" font-weight="700">
+              <circle cx="190" cy="16" r="10" fill="#4A3220"/><text x="190" y="20" fill="#F2E9D3" text-anchor="middle">2</text>
+              <line x1="190" y1="26" x2="190" y2="50" stroke="#4A3220" stroke-width="1"/>
+
+              <circle cx="78" cy="16" r="10" fill="#4A3220"/><text x="78" y="20" fill="#F2E9D3" text-anchor="middle">1</text>
+              <line x1="78" y1="26" x2="78" y2="52" stroke="#4A3220" stroke-width="1"/>
+
+              <circle cx="302" cy="16" r="10" fill="#4A3220"/><text x="302" y="20" fill="#F2E9D3" text-anchor="middle">4</text>
+              <line x1="302" y1="26" x2="302" y2="52" stroke="#4A3220" stroke-width="1"/>
+
+              <circle cx="28" cy="16" r="10" fill="#4A3220"/><text x="28" y="20" fill="#F2E9D3" text-anchor="middle">3</text>
+              <line x1="28" y1="26" x2="50" y2="72" stroke="#4A3220" stroke-width="1"/>
+
+              <circle cx="190" cy="212" r="10" fill="#4A3220"/><text x="190" y="216" fill="#F2E9D3" text-anchor="middle">5</text>
+              <line x1="190" y1="202" x2="190" y2="172" stroke="#4A3220" stroke-width="1"/>
+
+              <circle cx="60" cy="212" r="10" fill="#4A3220"/><text x="60" y="216" fill="#F2E9D3" text-anchor="middle">6</text>
+              <line x1="60" y1="202" x2="58" y2="146" stroke="#4A3220" stroke-width="1"/>
+            </g>
+          </svg>
+
+          <div class="legend">
+            <ol>
+              <li><span class="pin">1</span><span><b>Botões de timbre (voice / tone)</b> — trocam o som: piano, órgão, cordas. Comece e termine sempre no piano.</span></li>
+              <li><span class="pin">2</span><span><b>Visor</b> — mostra o número do timbre ou do ritmo selecionado.</span></li>
+              <li><span class="pin">3</span><span><b>Volume principal</b> — se o teclado "não liga som", é o primeiro lugar a conferir.</span></li>
+              <li><span class="pin">4</span><span><b>Botões de ritmo / acompanhamento</b> — a bateria automática. Útil depois; atrapalha no começo.</span></li>
+              <li><span class="pin">5</span><span><b>Teclas brancas</b> — são as sete notas naturais, repetidas de ponta a ponta.</span></li>
+              <li><span class="pin">6</span><span><b>Teclas pretas</b> — vêm sempre em grupos de 2 e de 3. São elas que te orientam no teclado.</span></li>
+            </ol>
+          </div>
+        </div>
+
+        <div class="tip"><b>Dica:</b> os nomes mudam conforme a marca — o que a Yamaha chama de <i>Voice</i>, a Casio chama de <i>Tone</i>. Se não achar um botão, procure pela função, não pela palavra exata.</div>
+      </section>
+
+      <!-- 2. POSTURA -->
+      <section class="chapter" data-chapter="postura">
+        <div class="eyebrow">CAPÍTULO 2</div>
+        <h2>Postura e altura certa</h2>
+        <p class="lead">No teclado, quase todo problema de postura começa na altura errada do banco. Acertar isso na primeira semana evita dor no ombro e no punho mais adiante.</p>
+
+        <div class="diagram-wrap">
+          <svg class="fit" width="260" height="300" viewBox="0 0 260 300" fill="none" role="img" aria-labelledby="t-postura" xmlns="http://www.w3.org/2000/svg">
+            <title id="t-postura">Pessoa sentada de frente para o teclado, com costas retas, antebraços paralelos ao chão e pés apoiados.</title>
+            <!-- banco -->
+            <rect x="26" y="196" width="80" height="10" fill="#C99A5B" stroke="#4A3220" stroke-width="2"/>
+            <rect x="32" y="206" width="8" height="66" fill="#C99A5B" stroke="#4A3220" stroke-width="2"/>
+            <rect x="92" y="206" width="8" height="66" fill="#C99A5B" stroke="#4A3220" stroke-width="2"/>
+            <!-- chao -->
+            <line x1="10" y1="274" x2="250" y2="274" stroke="#4A3220" stroke-width="2"/>
+            <!-- perna -->
+            <path d="M74,200 L112,214 L112,268" stroke="#4A3220" stroke-width="7" stroke-linecap="round" fill="none"/>
+            <path d="M112,268 L132,272" stroke="#4A3220" stroke-width="7" stroke-linecap="round" fill="none"/>
+            <!-- tronco -->
+            <path d="M68,104 C64,140 66,172 72,198" stroke="#8C3B2E" stroke-width="15" stroke-linecap="round" fill="none"/>
+            <!-- cabeca -->
+            <circle cx="72" cy="80" r="20" fill="#DDB47A" stroke="#4A3220" stroke-width="2"/>
+            <!-- linha guia das costas -->
+            <line x1="38" y1="100" x2="42" y2="196" stroke="#4B6B4F" stroke-width="2" stroke-dasharray="4 3"/>
+            <!-- suporte do teclado -->
+            <rect x="150" y="150" width="96" height="12" rx="2" fill="#4A3220"/>
+            <rect x="158" y="128" width="88" height="22" rx="3" fill="#3B2A1B"/>
+            <rect x="160" y="140" width="84" height="10" fill="#FBF7EC" stroke="#3B2A1B" stroke-width="1"/>
+            <path d="M172 162 v60 M224 162 v60" stroke="#6B5340" stroke-width="4"/>
+            <line x1="166" y1="222" x2="232" y2="222" stroke="#6B5340" stroke-width="4"/>
+            <!-- braco ate o teclado, paralelo ao chao -->
+            <path d="M80,128 L152,140" stroke="#DDB47A" stroke-width="11" stroke-linecap="round" fill="none"/>
+            <!-- linha guia do antebraco -->
+            <line x1="82" y1="150" x2="152" y2="150" stroke="#4B6B4F" stroke-width="2" stroke-dasharray="4 3"/>
+
+            <!-- pins -->
+            <g font-family="Work Sans" font-size="11" font-weight="700">
+              <circle cx="24" cy="130" r="10" fill="#4A3220"/><text x="24" y="134" fill="#F2E9D3" text-anchor="middle">1</text>
+              <circle cx="76" cy="40" r="10" fill="#4A3220"/><text x="76" y="44" fill="#F2E9D3" text-anchor="middle">2</text>
+              <circle cx="120" cy="112" r="10" fill="#4A3220"/><text x="120" y="116" fill="#F2E9D3" text-anchor="middle">3</text>
+              <line x1="120" y1="122" x2="118" y2="134" stroke="#4A3220" stroke-width="1"/>
+              <circle cx="150" cy="286" r="10" fill="#4A3220"/><text x="150" y="290" fill="#F2E9D3" text-anchor="middle">4</text>
+              <line x1="144" y1="280" x2="132" y2="274" stroke="#4A3220" stroke-width="1"/>
+            </g>
+          </svg>
+
+          <div class="legend">
+            <ol>
+              <li><span class="pin">1</span><span><b>Costas retas</b> — sentado na metade da frente do banco, sem encostar todo o corpo para trás.</span></li>
+              <li><span class="pin">2</span><span><b>Ombros soltos</b> — se o ombro sobe, o banco está baixo demais.</span></li>
+              <li><span class="pin">3</span><span><b>Antebraço paralelo ao chão</b> — a linha do cotovelo bate na altura das teclas. Esta é a medida que define a altura do banco.</span></li>
+              <li><span class="pin">4</span><span><b>Pés apoiados no chão</b> — se não alcançam, use um apoio (uma caixa firme resolve).</span></li>
+            </ol>
+          </div>
+        </div>
+
+        <div class="tip"><b>Mão em concha:</b> imagine segurar uma bolinha de pingue-pongue. Os dedos tocam com a pontinha, o punho fica na linha do antebraço — nem caído, nem levantado.</div>
+
+        <button class="toggle-btn" id="btnPostura" type="button" aria-expanded="false" aria-controls="posturaErrada">⚠ Ver erro comum de postura</button>
+        <div id="posturaErrada" class="warn" hidden>
+          <b>Evite:</b> banco baixo demais (obriga o ombro a subir e o punho a dobrar para cima), dedos esticados batendo com a polpa em vez da ponta, e punho caído abaixo da linha das teclas. Os três causam cansaço no antebraço em poucos minutos e são o motivo mais comum de desânimo nas primeiras semanas.
+        </div>
+      </section>
+
+      <!-- 3. MÃOS -->
+      <section class="chapter" data-chapter="maos">
+        <div class="eyebrow">CAPÍTULO 3</div>
+        <h2>Suas mãos e os números dos dedos</h2>
+        <p class="lead">No teclado as duas mãos usam a mesma numeração, de 1 a 5, começando pelo polegar. É esse número que aparece em qualquer diagrama de acorde ou partitura.</p>
+
+        <div class="grid-2">
+          <div class="card">
+            <h3 style="font-size:1.05rem;">Mão esquerda</h3>
+            <svg class="fit" width="190" height="200" viewBox="0 0 190 200" role="img" aria-labelledby="t-mao-esq" xmlns="http://www.w3.org/2000/svg">
+              <title id="t-mao-esq">Mão esquerda vista de cima, com o polegar à direita numerado 1 e os demais dedos numerados 2, 3, 4 e 5 da direita para a esquerda.</title>
+              <path d="M128,150 C138,150 143,140 143,120 L143,80 C143,74 138,70 133,70 C128,70 124,74 124,80 L124,60 C124,54 119,50 114,50 C109,50 105,54 105,60 L105,55 C105,49 100,45 95,45 C90,45 86,49 86,55 L86,65 C86,59 81,55 76,55 C71,55 67,59 67,65 L67,120 C67,150 83,168 98,168 C110,168 122,164 128,150 Z"
+                    fill="#DDB47A" stroke="#4A3220" stroke-width="2.2"/>
+              <path d="M143,110 C158,105 166,95 164,84 C162,75 152,74 146,82 L136,98" fill="#DDB47A" stroke="#4A3220" stroke-width="2.2"/>
+              <g font-family="Work Sans" font-size="12" font-weight="700" text-anchor="middle">
+                <circle cx="160" cy="88" r="11" fill="#8C3B2E"/><text x="160" y="92" fill="#F2E9D3">1</text>
+                <circle cx="133" cy="63" r="11" fill="#4A3220"/><text x="133" y="67" fill="#F2E9D3">2</text>
+                <circle cx="114" cy="43" r="11" fill="#4A3220"/><text x="114" y="47" fill="#F2E9D3">3</text>
+                <circle cx="95" cy="38" r="11" fill="#4A3220"/><text x="95" y="42" fill="#F2E9D3">4</text>
+                <circle cx="76" cy="48" r="11" fill="#4A3220"/><text x="76" y="52" fill="#F2E9D3">5</text>
+              </g>
+            </svg>
+            <p style="font-size:0.88rem; margin-top:8px;">Na mão esquerda o polegar (1) fica do lado <b>direito</b>, apontando para o centro do teclado. O mindinho (5) toca as notas mais graves.</p>
+          </div>
+
+          <div class="card">
+            <h3 style="font-size:1.05rem;">Mão direita</h3>
+            <svg class="fit" width="190" height="200" viewBox="0 0 190 200" role="img" aria-labelledby="t-mao-dir" xmlns="http://www.w3.org/2000/svg">
+              <title id="t-mao-dir">Mão direita vista de cima, com o polegar à esquerda numerado 1 e os demais dedos numerados 2, 3, 4 e 5 da esquerda para a direita.</title>
+              <path d="M62,150 C52,150 47,140 47,120 L47,80 C47,74 52,70 57,70 C62,70 66,74 66,80 L66,60 C66,54 71,50 76,50 C81,50 85,54 85,60 L85,55 C85,49 90,45 95,45 C100,45 104,49 104,55 L104,65 C104,59 109,55 114,55 C119,55 123,59 123,65 L123,120 C123,150 107,168 92,168 C80,168 68,164 62,150 Z"
+                    fill="#DDB47A" stroke="#4A3220" stroke-width="2.2"/>
+              <path d="M47,110 C32,105 24,95 26,84 C28,75 38,74 44,82 L54,98" fill="#DDB47A" stroke="#4A3220" stroke-width="2.2"/>
+              <g font-family="Work Sans" font-size="12" font-weight="700" text-anchor="middle">
+                <circle cx="30" cy="88" r="11" fill="#8C3B2E"/><text x="30" y="92" fill="#F2E9D3">1</text>
+                <circle cx="57" cy="63" r="11" fill="#4A3220"/><text x="57" y="67" fill="#F2E9D3">2</text>
+                <circle cx="76" cy="43" r="11" fill="#4A3220"/><text x="76" y="47" fill="#F2E9D3">3</text>
+                <circle cx="95" cy="38" r="11" fill="#4A3220"/><text x="95" y="42" fill="#F2E9D3">4</text>
+                <circle cx="114" cy="48" r="11" fill="#4A3220"/><text x="114" y="52" fill="#F2E9D3">5</text>
+              </g>
+            </svg>
+            <p style="font-size:0.88rem; margin-top:8px;">Na mão direita o polegar (1) fica do lado <b>esquerdo</b>. O mindinho (5) toca as notas mais agudas.</p>
+          </div>
+        </div>
+
+        <div class="tip"><b>O polegar é sempre 1.</b> É a diferença que mais confunde quem já mexeu com violão: lá o polegar nem entra na conta, aqui ele é o dedo número 1 nas duas mãos. Os números são espelhados — o 1 de uma mão aponta para o 1 da outra.</div>
+      </section>
+
+      <!-- 4. TECLAS BRANCAS E PRETAS -->
+      <section class="chapter" data-chapter="teclas">
+        <div class="eyebrow">CAPÍTULO 4</div>
+        <h2>Teclas brancas e pretas: o padrão que se repete</h2>
+        <p class="lead">O teclado parece um mar de teclas iguais, mas não é. As pretas vêm sempre em grupos de duas e de três, e esse desenho se repete de ponta a ponta. É o seu mapa — decorou isso, você nunca mais se perde.</p>
+
+        <svg class="fit" width="380" height="170" viewBox="0 0 380 170" role="img" aria-labelledby="t-teclas" xmlns="http://www.w3.org/2000/svg" style="margin:18px 0;">
+          <title id="t-teclas">Duas oitavas de teclado mostrando que as teclas pretas se organizam sempre em grupos de duas e de três, e que o padrão se repete.</title>
+          <!-- brancas -->
+          <g>
+            <rect x="8" y="14" width="364" height="110" fill="#FBF7EC" stroke="#3B2A1B" stroke-width="1.6"/>
+            <g stroke="#8C5A2E" stroke-width="1.1">
+              <path d="M34 14 v110 M60 14 v110 M86 14 v110 M112 14 v110 M138 14 v110 M164 14 v110 M190 14 v110 M216 14 v110 M242 14 v110 M268 14 v110 M294 14 v110 M320 14 v110 M346 14 v110"/>
+            </g>
+          </g>
+          <!-- destaque dos grupos: depois das brancas e antes das pretas,
+               para tingir a coluna inteira sem cobrir as teclas pretas -->
+          <rect x="22" y="14" width="50" height="110" fill="#B8862E" opacity="0.22"/>
+          <rect x="100" y="14" width="76" height="110" fill="#4B6B4F" opacity="0.20"/>
+          <rect x="204" y="14" width="50" height="110" fill="#B8862E" opacity="0.22"/>
+          <rect x="282" y="14" width="76" height="110" fill="#4B6B4F" opacity="0.20"/>
+          <!-- pretas -->
+          <g fill="#3B2A1B">
+            <rect x="26" y="14" width="16" height="68" rx="1.5"/>
+            <rect x="52" y="14" width="16" height="68" rx="1.5"/>
+            <rect x="104" y="14" width="16" height="68" rx="1.5"/>
+            <rect x="130" y="14" width="16" height="68" rx="1.5"/>
+            <rect x="156" y="14" width="16" height="68" rx="1.5"/>
+            <rect x="208" y="14" width="16" height="68" rx="1.5"/>
+            <rect x="234" y="14" width="16" height="68" rx="1.5"/>
+            <rect x="286" y="14" width="16" height="68" rx="1.5"/>
+            <rect x="312" y="14" width="16" height="68" rx="1.5"/>
+            <rect x="338" y="14" width="16" height="68" rx="1.5"/>
+          </g>
+          <!-- marca do Do -->
+          <g font-family="Work Sans" font-size="10" font-weight="700" text-anchor="middle">
+            <circle cx="21" cy="112" r="9" fill="#8C3B2E"/><text x="21" y="116" fill="#F2E9D3">Dó</text>
+            <circle cx="203" cy="112" r="9" fill="#8C3B2E"/><text x="203" y="116" fill="#F2E9D3">Dó</text>
+          </g>
+          <g font-family="Work Sans" font-size="10" font-weight="600" fill="#6B5340" text-anchor="middle">
+            <text x="47" y="142">grupo de 2</text>
+            <text x="138" y="142">grupo de 3</text>
+            <text x="229" y="142">grupo de 2</text>
+            <text x="320" y="142">grupo de 3</text>
+            <text x="190" y="161" font-size="11" font-weight="700" fill="#4A3220">← o mesmo desenho se repete por todo o teclado →</text>
+          </g>
+        </svg>
+
+        <div class="grid-2">
+          <div class="card">
+            <h3 style="font-size:1.05rem;">Por que isso importa</h3>
+            <p style="font-size:0.92rem; margin:0;">Sem os grupos de pretas, todas as teclas brancas seriam idênticas e não haveria como saber onde você está. Os grupos funcionam como as marcações de uma régua: você não conta desde a ponta, você olha a marca mais próxima.</p>
+          </div>
+          <div class="card">
+            <h3 style="font-size:1.05rem;">A regra do Dó</h3>
+            <p style="font-size:0.92rem; margin:0;"><b>Dó é sempre a tecla branca imediatamente à esquerda do grupo de 2 pretas.</b> Não existe exceção. Ache um grupo de 2, desça uma branca à esquerda: é Dó. Esse é o único ponto que você precisa memorizar no teclado inteiro.</p>
+          </div>
+        </div>
+
+        <div class="tip"><b>Exercício de 1 minuto:</b> com o teclado desligado, encontre todos os Dós do instrumento usando só a regra acima. Faça isso por alguns dias, no começo do estudo. Em uma semana você para de contar e passa a enxergar.</div>
+      </section>
+
+      <!-- 5. NOME DAS NOTAS -->
+      <section class="chapter" data-chapter="notas">
+        <div class="eyebrow">CAPÍTULO 5</div>
+        <h2>Achar o Dó e o nome das notas</h2>
+        <p class="lead">As sete teclas brancas, de Dó a Si, dão uma volta completa e recomeçam. Aprendendo essa sequência uma vez, ela vale para o teclado inteiro.</p>
+
+        <svg class="fit" width="380" height="160" viewBox="0 0 380 160" role="img" aria-labelledby="t-notas" xmlns="http://www.w3.org/2000/svg" style="margin:18px 0;">
+          <title id="t-notas">Uma oitava de teclado com as sete teclas brancas nomeadas Dó, Ré, Mi, Fá, Sol, Lá e Si, e o Dó seguinte recomeçando a sequência.</title>
+          <g>
+            <rect x="8" y="10" width="364" height="110" fill="#FBF7EC" stroke="#3B2A1B" stroke-width="1.6"/>
+            <g stroke="#8C5A2E" stroke-width="1.1">
+              <path d="M53.5 10 v110 M99 10 v110 M144.5 10 v110 M190 10 v110 M235.5 10 v110 M281 10 v110 M326.5 10 v110"/>
+            </g>
+          </g>
+          <g fill="#3B2A1B">
+            <rect x="44" y="10" width="19" height="68" rx="1.5"/>
+            <rect x="89" y="10" width="19" height="68" rx="1.5"/>
+            <rect x="180" y="10" width="19" height="68" rx="1.5"/>
+            <rect x="226" y="10" width="19" height="68" rx="1.5"/>
+            <rect x="271" y="10" width="19" height="68" rx="1.5"/>
+          </g>
+          <g font-family="Work Sans" font-size="12" font-weight="700" text-anchor="middle">
+            <text x="31" y="112" fill="#8C3B2E">Dó</text>
+            <text x="76" y="112" fill="#4A3220">Ré</text>
+            <text x="122" y="112" fill="#4A3220">Mi</text>
+            <text x="167" y="112" fill="#4A3220">Fá</text>
+            <text x="213" y="112" fill="#4A3220">Sol</text>
+            <text x="258" y="112" fill="#4A3220">Lá</text>
+            <text x="304" y="112" fill="#4A3220">Si</text>
+            <text x="349" y="112" fill="#8C3B2E">Dó</text>
+          </g>
+          <g font-family="Work Sans" font-size="10.5" font-weight="600" fill="#6B5340" text-anchor="middle">
+            <text x="190" y="142">O Dó é sempre a branca à esquerda do grupo de 2 pretas — e no Dó seguinte tudo recomeça.</text>
+          </g>
+        </svg>
+
+        <div class="grid-2">
+          <div class="card">
+            <h3 style="font-size:1.05rem;">Nome brasileiro e cifra</h3>
+            <p style="font-size:0.9rem; color:var(--ink-soft);">Você vai encontrar os dois jeitos. A cifra (letra) é o que aparece na internet e nas apostilas.</p>
+            <ul class="pair-list">
+              <li><span class="from">Dó</span><span class="eq">=</span><span class="to"><b>C</b></span></li>
+              <li><span class="from">Ré</span><span class="eq">=</span><span class="to"><b>D</b></span></li>
+              <li><span class="from">Mi</span><span class="eq">=</span><span class="to"><b>E</b></span></li>
+              <li><span class="from">Fá</span><span class="eq">=</span><span class="to"><b>F</b></span></li>
+              <li><span class="from">Sol</span><span class="eq">=</span><span class="to"><b>G</b></span></li>
+              <li><span class="from">Lá</span><span class="eq">=</span><span class="to"><b>A</b></span></li>
+              <li><span class="from">Si</span><span class="eq">=</span><span class="to"><b>B</b></span></li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3 style="font-size:1.05rem;">E o Dó central?</h3>
+            <p style="font-size:0.92rem;">É o Dó que fica mais ou menos no meio do teclado, em geral perto da marca do fabricante ou do visor. Num teclado de 61 teclas, é o terceiro Dó da esquerda para a direita.</p>
+            <p style="font-size:0.92rem; margin:0;">Ele é o ponto de encontro das duas mãos: a mão direita costuma tocar dele para a direita, a esquerda dele para a esquerda. Quando o professor disser "comece no Dó central", é esse.</p>
+          </div>
+        </div>
+
+        <div class="warn"><b>Cuidado com a decoreba:</b> não tente memorizar o nome de cada tecla uma por uma. Memorize só o Dó e conte a partir dele. A velocidade vem sozinha com as semanas.</div>
+      </section>
+
+      <!-- 6. LER UMA CIFRA -->
+      <section class="chapter" data-chapter="cifras">
+        <div class="eyebrow">CAPÍTULO 6</div>
+        <h2>Como ler uma cifra e um diagrama</h2>
+        <p class="lead">Cifra é o nome do acorde escrito em letra. Diagrama é o desenho que mostra quais teclas apertar. Com esses dois você consegue tirar qualquer música da internet sozinho.</p>
+
+        <div class="grid-2">
+          <div class="card">
+            <h3 style="font-size:1.05rem;">A letra é a nota principal</h3>
+            <p style="font-size:0.92rem;">A letra sozinha significa acorde <b>maior</b>, de som alegre e aberto:</p>
+            <p style="font-size:0.92rem;"><b>C</b> = Dó maior &nbsp;·&nbsp; <b>G</b> = Sol maior &nbsp;·&nbsp; <b>F</b> = Fá maior</p>
+            <p style="font-size:0.92rem; margin:0;">Um <b>m</b> minúsculo depois da letra significa <b>menor</b>, de som mais triste e fechado:</p>
+            <p style="font-size:0.92rem; margin:6px 0 0;"><b>Am</b> = Lá menor &nbsp;·&nbsp; <b>Em</b> = Mi menor &nbsp;·&nbsp; <b>Dm</b> = Ré menor</p>
+          </div>
+          <div class="card">
+            <h3 style="font-size:1.05rem;">O diagrama é o teclado visto de cima</h3>
+            <p style="font-size:0.92rem;">Cada desenho mostra um pedaço do teclado. As teclas marcadas em dourado são as que você aperta; o número dentro do círculo é o <b>dedo</b> que faz aquela tecla.</p>
+            <p style="font-size:0.92rem; margin:0;">Os nomes embaixo ajudam a conferir se você está no lugar certo. Comece sempre achando o Dó do desenho no seu teclado.</p>
+          </div>
+        </div>
+
+        <div class="tip"><b>Um acorde são três notas tocadas juntas.</b> Nos quatro acordes desta cartilha, elas caem sempre nos dedos <b>1, 3 e 5</b> da mão direita, pulando uma tecla branca entre cada uma. Percebendo esse desenho da mão, os quatro viram um só movimento.</div>
+
+        <p style="font-size:0.92rem;">Pronto para ver os diagramas de verdade? Eles estão no <a href="#acordes">próximo capítulo</a>.</p>
+      </section>
+
+      <!-- 7. PRIMEIROS ACORDES -->
+      <section class="chapter" data-chapter="acordes">
+        <div class="eyebrow">CAPÍTULO 7</div>
+        <h2>Seus primeiros 4 acordes</h2>
+        <p class="lead">Com estes quatro você já toca centenas de músicas. Todos usam os dedos 1, 3 e 5 da mão direita, e todos ficam na mesma região do teclado — só a mão desliza.</p>
+
+        <div class="key-bar">
+          <b>Como ler:</b>
+          <span><i>1</i> tecla que você aperta, com o número do dedo</span>
+          <span><i class="sil">Dó</i> tecla livre, não toca</span>
+          <span>Mão direita, com o polegar (1) na nota da esquerda</span>
+        </div>
+
+        <div class="grid-4" id="chordGrid"></div>
+
+        <div class="tip"><b>Comece pelo Dó maior (C).</b> Polegar no Dó, dedo 3 no Mi, dedo 5 no Sol — pulando uma branca entre cada dedo. Sinta o formato da mão: os outros três acordes são esse mesmo formato deslizado para outro ponto.</div>
+      </section>
+
+      <!-- 8. EXERCÍCIOS -->
+      <section class="chapter" data-chapter="exercicios">
+        <div class="eyebrow">CAPÍTULO 8</div>
+        <h2>Exercícios de troca de acordes</h2>
+        <p class="lead">Tocar um acorde é fácil. O que separa quem toca de quem não toca é a <b>troca</b>. Estes exercícios são curtos de propósito: é melhor cinco minutos por dia do que uma hora no domingo.</p>
+
+        <ol class="ex-list">
+          <li>
+            <span class="n">1</span>
+            <div>
+              <h4>Formar e soltar (sem pressa)</h4>
+              <p>Monte o C, toque, solte a mão completamente do teclado. Monte de novo. Dez vezes. O objetivo não é velocidade: é a mão aprender a cair já no formato certo.</p>
+            </div>
+          </li>
+          <li>
+            <span class="n">2</span>
+            <div>
+              <h4>Dois acordes, quatro tempos cada</h4>
+              <p>C por quatro tempos, Am por quatro tempos, e volta. Conte alto: "um, dois, três, quatro". Se atrasar na troca, conte mais devagar — nunca corra atrás do tempo.</p>
+            </div>
+          </li>
+          <li>
+            <span class="n">3</span>
+            <div>
+              <h4>A troca antecipada</h4>
+              <p>No quarto tempo, comece a soltar os dedos e mover a mão antes de o tempo acabar. Trocar acorde não é um salto, é um deslize que começa cedo. Este é o exercício que mais rende.</p>
+            </div>
+          </li>
+          <li>
+            <span class="n">4</span>
+            <div>
+              <h4>A volta completa</h4>
+              <p>C → Am → F → G, quatro tempos em cada, sem parar, em roda. Essa sequência é a base de muita música popular. Quando ela sair limpa e sem olhar para as mãos, você está pronto para o ritmo.</p>
+            </div>
+          </li>
+        </ol>
+
+        <div class="warn"><b>Se travar:</b> volte para dois acordes só. Insistir em quatro quando dois ainda não saem é o caminho mais rápido para desanimar.</div>
+      </section>
+
+      <!-- 9. RITMO / ACOMPANHAMENTO -->
+      <section class="chapter" data-chapter="ritmo">
+        <div class="eyebrow">CAPÍTULO 9</div>
+        <h2>Seu primeiro acompanhamento</h2>
+        <p class="lead">Agora as duas mãos juntas. A esquerda faz o baixo, a direita faz o acorde — alternando. É o acompanhamento mais usado do mundo e cabe em quatro tempos.</p>
+
+        <div class="beat-row">
+          <div class="beat esq"><div class="syll">1</div><div class="sub">baixo<br>mão esquerda</div></div>
+          <div class="beat dir"><div class="syll">2</div><div class="sub">acorde<br>mão direita</div></div>
+          <div class="beat esq"><div class="syll">3</div><div class="sub">baixo<br>mão esquerda</div></div>
+          <div class="beat dir"><div class="syll">4</div><div class="sub">acorde<br>mão direita</div></div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <h3 style="font-size:1.05rem;">Mão esquerda: uma nota só</h3>
+            <p style="font-size:0.92rem; margin:0;">Toque apenas a nota que dá nome ao acorde, com o dedo 5, bem grave. No C, toque o Dó. No Am, o Lá. No F, o Fá. No G, o Sol. Uma tecla, nada mais — e já soa como música.</p>
+          </div>
+          <div class="card">
+            <h3 style="font-size:1.05rem;">Mão direita: o acorde inteiro</h3>
+            <p style="font-size:0.92rem; margin:0;">As três teclas do capítulo 7, tocadas juntas, curtas. Não segure o som até o próximo tempo: solte, respire, toque de novo no tempo 4.</p>
+          </div>
+        </div>
+
+        <div class="tip"><b>Monte por partes.</b> Primeiro só a mão esquerda nos tempos 1 e 3, umas dez vezes. Depois só a direita nos tempos 2 e 4. Só então junte. Tentar as duas de primeira é o erro clássico — e frustra à toa.</div>
+
+        <div class="warn"><b>Sobre o ritmo automático do teclado:</b> deixe desligado por enquanto. Ele acelera e não espera por você; no começo, atrapalha mais do que ajuda. Quando a troca de acordes estiver firme, aí sim ele vira um bom companheiro de estudo.</div>
+      </section>
+
+      <!-- 10. DÚVIDAS -->
+      <section class="chapter" data-chapter="duvidas">
+        <div class="eyebrow">CAPÍTULO 10</div>
+        <h2>Dúvidas frequentes</h2>
+        <p class="lead">As perguntas que aparecem quase toda semana nas primeiras aulas.</p>
+
+        <details class="faq">
+          <summary>Quantas teclas meu teclado precisa ter?</summary>
+          <p>Para tudo desta cartilha, 61 teclas sobram. Dá para estudar até com 49. O número de teclas só começa a pesar quando você for tocar peças que usam os extremos do instrumento — o que ainda vai demorar.</p>
+        </details>
+        <details class="faq">
+          <summary>Preciso de teclas pesadas, tipo piano?</summary>
+          <p>Não para começar. Teclas leves são até mais confortáveis nas primeiras semanas. Se mais para a frente você quiser migrar para piano, aí a ação pesada passa a fazer diferença — mas isso é decisão para outro momento, não para agora.</p>
+        </details>
+        <details class="faq">
+          <summary>Quanto tempo devo estudar por dia?</summary>
+          <p>Quinze a vinte minutos, todo dia, rende muito mais que duas horas no fim de semana. O que constrói a memória da mão é a repetição espaçada, não a duração de cada sessão.</p>
+        </details>
+        <details class="faq">
+          <summary>Posso estudar com fone de ouvido?</summary>
+          <p>Pode, e ajuda bastante quem mora com mais gente. Só cuide do volume: como não incomoda ninguém, é fácil exagerar sem perceber. Se ao tirar o fone o ambiente parecer abafado, estava alto demais.</p>
+        </details>
+        <details class="faq">
+          <summary>Minha mão cansa depois de poucos minutos. É normal?</summary>
+          <p>Um cansaço leve no começo é esperado. Dor, não. Dor quase sempre vem de banco na altura errada, punho caído ou dedos esticados demais — vale reler o capítulo 2. Se doer, pare e ajuste a postura antes de continuar.</p>
+        </details>
+        <details class="faq">
+          <summary>Preciso aprender a ler partitura?</summary>
+          <p>Não para tocar as músicas que você gosta — a cifra resolve. Partitura é uma ferramenta a mais, muito útil, mas que pode entrar depois, quando tocar já for prazeroso. Aprender as duas coisas ao mesmo tempo costuma cansar.</p>
+        </details>
+        <details class="faq">
+          <summary>Estou tocando as notas certas mas não parece música. Por quê?</summary>
+          <p>Quase sempre é constância de tempo. Notas certas em tempos irregulares soam erradas; notas simples em tempo firme soam bem. Conte alto enquanto toca — é o remédio mais simples e o mais ignorado.</p>
+        </details>
+      </section>
+
+    </div>
+
+    <!-- ============ FOOTER NAV ============ -->
+    <div class="page-footer">
+      <button class="nav-btn" id="btnPrev" type="button">← Anterior</button>
+      <span class="prog" id="progText">Capa</span>
+      <button class="nav-btn" id="btnNext" type="button">Próximo →</button>
+    </div>
+  </main>
+</div>
+
+<script>
+  /* ------------------------------------------------------------------
+     Cartilha do aluno (teclado) — navegação por capítulos.
+
+     Este array é a única fonte da ordem e da numeração: o índice 0 é a
+     capa (sem número) e os demais são numerados a partir de 1. Inserir um
+     capítulo aqui renumera o resto sozinho, inclusive o rótulo
+     "CAPÍTULO N" de cada seção — o número escrito no HTML é só um
+     ponto de partida, o script o reescreve na abertura.
+     ------------------------------------------------------------------ */
+  const chapters = [
+    {id:'capa',       label:'Bem-vindo'},
+    {id:'partes',     label:'Partes do teclado'},
+    {id:'postura',    label:'Postura e altura'},
+    {id:'maos',       label:'Números dos dedos'},
+    {id:'teclas',     label:'Brancas e pretas'},
+    {id:'notas',      label:'Nome das notas'},
+    {id:'cifras',     label:'Ler uma cifra'},
+    {id:'acordes',    label:'Primeiros acordes'},
+    {id:'exercicios', label:'Exercícios de troca'},
+    {id:'ritmo',      label:'Primeiro acompanhamento'},
+    {id:'duvidas',    label:'Dúvidas frequentes'},
+  ];
+
+  /* Chave própria: as duas cartilhas (violão e teclado) moram no mesmo
+     domínio do GitHub Pages e, portanto, dividem o mesmo localStorage.
+     Com a mesma chave, o progresso de uma sobrescreveria o da outra. */
+  const STORE_KEY = 'cartilha-teclado';
+
+  /* localStorage estoura em janela anônima ou com cookies bloqueados.
+     Lembrar onde o aluno parou é conforto, não requisito: falhou, segue. */
+  function loadState(){
+    try { return JSON.parse(localStorage.getItem(STORE_KEY)) || {}; }
+    catch(e){ return {}; }
+  }
+  function saveState(data){
+    try { localStorage.setItem(STORE_KEY, JSON.stringify(data)); }
+    catch(e){ /* sem persistência, tudo bem */ }
+  }
+
+  const state = loadState();
+  const seen  = new Set(Array.isArray(state.seen) ? state.seen : []);
+  let currentIdx = 0;
+
+  const progText = document.getElementById('progText');
+  const btnPrev  = document.getElementById('btnPrev');
+  const btnNext  = document.getElementById('btnNext');
+
+  // ---------- barra lateral + numeração das seções ----------
+  const nav = document.getElementById('chapterNav');
+  chapters.forEach((c, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'chap-btn';
+    btn.type = 'button';
+    btn.dataset.id = c.id;
+    btn.innerHTML = '<span class="num">' + (i === 0 ? '—' : i) + '</span><span>' + c.label + '</span>';
+    btn.addEventListener('click', () => showChapter(c.id));
+    nav.appendChild(btn);
+    c.btn = btn;
+
+    c.section = document.querySelector('.chapter[data-chapter="' + c.id + '"]');
+    if(c.section && i > 0){
+      const eyebrow = c.section.querySelector('.eyebrow');
+      if(eyebrow) eyebrow.textContent = 'CAPÍTULO ' + i;
+    }
+  });
+
+  function showChapter(id, opts){
+    opts = opts || {};
+    const idx = chapters.findIndex(c => c.id === id);
+    if(idx < 0) return;
+
+    seen.add(id);
+
+    chapters.forEach((c, i) => {
+      const on = (i === idx);
+      if(c.section) c.section.classList.toggle('active', on);
+      c.btn.classList.toggle('active', on);
+      c.btn.classList.toggle('seen', seen.has(c.id));
+      c.btn.setAttribute('aria-current', on ? 'true' : 'false');
+    });
+
+    currentIdx = idx;
+    const total = chapters.length - 1;
+    progText.textContent = idx === 0
+      ? 'Capa · ' + total + ' capítulos'
+      : 'Capítulo ' + idx + ' de ' + total;
+    btnPrev.disabled = (idx === 0);
+    btnNext.disabled = (idx === chapters.length - 1);
+
+    saveState({ last: id, seen: Array.from(seen) });
+
+    // mantém o botão à vista (faixa horizontal no celular, coluna no desktop)
+    if(chapters[idx].btn.scrollIntoView){
+      chapters[idx].btn.scrollIntoView({block:'nearest', inline:'center'});
+    }
+    // quem rola é o documento: #contentScroll não tem overflow próprio
+    window.scrollTo(0, 0);
+
+    // URL por capítulo: permite mandar link direto e usar voltar/avançar
+    const hash = '#' + id;
+    if(location.hash !== hash){
+      if(opts.replace) history.replaceState(null, '', hash);
+      else             history.pushState(null, '', hash);
+    }
+  }
+
+  function go(dir){
+    const next = currentIdx + dir;
+    if(next >= 0 && next < chapters.length) showChapter(chapters[next].id);
+  }
+
+  btnPrev.addEventListener('click', () => go(-1));
+  btnNext.addEventListener('click', () => go(1));
+
+  // voltar/avançar do navegador e links internos (href="#acordes")
+  window.addEventListener('hashchange', () => {
+    const id = location.hash.replace('#', '');
+    if(id && id !== chapters[currentIdx].id) showChapter(id, {replace:true});
+  });
+
+  // setas do teclado, sem atrapalhar quem está digitando em algum campo
+  document.addEventListener('keydown', (e) => {
+    if(e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) return;
+    const t = e.target;
+    if(t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))) return;
+    if(e.key === 'ArrowRight'){ e.preventDefault(); go(1); }
+    else if(e.key === 'ArrowLeft'){ e.preventDefault(); go(-1); }
+  });
+
+  // ---------- erro comum de postura ----------
+  const btnPostura = document.getElementById('btnPostura');
+  const boxPostura = document.getElementById('posturaErrada');
+  btnPostura.addEventListener('click', () => {
+    const estavaAberto = !boxPostura.hidden;
+    boxPostura.hidden = estavaAberto;
+    btnPostura.setAttribute('aria-expanded', String(!estavaAberto));
+    btnPostura.textContent = estavaAberto
+      ? '⚠ Ver erro comum de postura'
+      : '⚠ Ocultar erro comum de postura';
+  });
+
+  // ---------- impressão / PDF ----------
+  /* O CSS de impressão revela todos os capítulos de uma vez. Falta abrir os
+     <details> do FAQ: conteúdo de <details> fechado não vai para o papel.
+     O Safari antigo não dispara beforeprint/afterprint, daí o matchMedia
+     como reserva — e a flag evita que os dois caminhos se atropelem. */
+  let impressaoAtiva = false;
+  let faqFechados = [];
+
+  function prepararImpressao(){
+    if(impressaoAtiva) return;
+    impressaoAtiva = true;
+    faqFechados = [].filter.call(document.querySelectorAll('details.faq'), d => !d.open);
+    faqFechados.forEach(d => { d.open = true; });
+  }
+  function restaurarImpressao(){
+    if(!impressaoAtiva) return;
+    impressaoAtiva = false;
+    faqFechados.forEach(d => { d.open = false; });
+    faqFechados = [];
+  }
+
+  window.addEventListener('beforeprint', prepararImpressao);
+  window.addEventListener('afterprint', restaurarImpressao);
+  if(window.matchMedia){
+    const mq = window.matchMedia('print');
+    const onPrintChange = (e) => { e.matches ? prepararImpressao() : restaurarImpressao(); };
+    if(mq.addEventListener) mq.addEventListener('change', onPrintChange);
+    else if(mq.addListener)  mq.addListener(onPrintChange);
+  }
+  document.getElementById('btnPrint').addEventListener('click', () => window.print());
+
+  // ---------- diagramas de acorde ----------
+  /* O desenho mostra 10 teclas brancas seguidas, de Dó a Mi. Os acordes
+     são identificados pelo índice da tecla branca nessa faixa (0 = o Dó
+     da esquerda), o que mantém os quatro na mesma janela do teclado — que
+     é justamente o que se quer mostrar: a mão desliza, não muda de forma. */
+  const BRANCAS = ['Dó','Ré','Mi','Fá','Sol','Lá','Si','Dó','Ré','Mi'];
+  const PRETAS_APOS = [0,1,3,4,5,7,8];   // há tecla preta depois destas brancas
+  const W = 22, H = 92, X0 = 6, Y0 = 6;
+
+  const chordDefs = {
+    'Dó maior':  {abbr:'C',  teclas:[{b:0,d:1},{b:2,d:3},{b:4,d:5}]},
+    'Sol maior': {abbr:'G',  teclas:[{b:4,d:1},{b:6,d:3},{b:8,d:5}]},
+    'Lá menor':  {abbr:'Am', teclas:[{b:5,d:1},{b:7,d:3},{b:9,d:5}]},
+    'Fá maior':  {abbr:'F',  teclas:[{b:3,d:1},{b:5,d:3},{b:7,d:5}]}
+  };
+
+  function chordSVG(def, nome){
+    const tid = 'cd-' + def.abbr;
+    const marcadas = {};
+    def.teclas.forEach(t => { marcadas[t.b] = t.d; });
+
+    let svg = '<svg width="232" height="128" viewBox="0 0 232 128" role="img" aria-labelledby="' + tid + '" xmlns="http://www.w3.org/2000/svg">';
+    svg += '<title id="' + tid + '">Diagrama do acorde ' + def.abbr + ', ' + nome + ': teclas '
+         + def.teclas.map(t => BRANCAS[t.b] + ' com o dedo ' + t.d).join(', ') + '.</title>';
+
+    // teclas brancas
+    for(let i = 0; i < BRANCAS.length; i++){
+      svg += '<rect x="' + (X0 + i*W) + '" y="' + Y0 + '" width="' + W + '" height="' + H + '" '
+           + 'fill="#FBF7EC" stroke="#3B2A1B" stroke-width="1.2"/>';
+    }
+    // realce das teclas do acorde, por cima do branco e por baixo das pretas
+    Object.keys(marcadas).forEach(i => {
+      svg += '<rect x="' + (X0 + i*W) + '" y="' + Y0 + '" width="' + W + '" height="' + H + '" '
+           + 'fill="#B8862E" opacity="0.30"/>';
+    });
+    // teclas pretas
+    PRETAS_APOS.forEach(i => {
+      svg += '<rect x="' + (X0 + (i+1)*W - 7) + '" y="' + Y0 + '" width="14" height="56" rx="1.5" fill="#3B2A1B"/>';
+    });
+    // numero do dedo + nome da nota
+    for(let i = 0; i < BRANCAS.length; i++){
+      const cx = X0 + i*W + W/2;
+      if(marcadas[i]){
+        svg += '<circle cx="' + cx + '" cy="76" r="9" fill="#B8862E"/>';
+        svg += '<text x="' + cx + '" y="80" font-family="Work Sans" font-size="11" font-weight="700" '
+             + 'fill="#4A3220" text-anchor="middle">' + marcadas[i] + '</text>';
+      }
+      svg += '<text x="' + cx + '" y="114" font-family="Work Sans" font-size="8.5" '
+           + 'font-weight="' + (marcadas[i] ? '700' : '400') + '" '
+           + 'fill="' + (marcadas[i] ? '#8C3B2E' : '#6B5340') + '" text-anchor="middle">'
+           + BRANCAS[i] + '</text>';
+    }
+    svg += '</svg>';
+    return svg;
+  }
+
+  const chordGrid = document.getElementById('chordGrid');
+  Object.keys(chordDefs).forEach(nome => {
+    const def = chordDefs[nome];
+    const notas = def.teclas.map(t => BRANCAS[t.b]).join(' · ');
+    const div = document.createElement('div');
+    div.className = 'card chord-card';
+    div.innerHTML = '<h3>' + def.abbr + '</h3><div class="sub">' + nome + '</div>'
+                  + chordSVG(def, nome)
+                  + '<div class="note">Notas: <b>' + notas + '</b></div>';
+    chordGrid.appendChild(div);
+  });
+
+  // ---------- abertura: hash da URL > onde o aluno parou > capa ----------
+  const existe = (id) => chapters.some(c => c.id === id);
+  const idHash = location.hash.replace('#', '');
+  const inicial = existe(idHash) ? idHash : (existe(state.last) ? state.last : 'capa');
+  showChapter(inicial, {replace:true});
+</script>
+
+</body>
+</html>
