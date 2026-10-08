@@ -122,7 +122,7 @@
   .side-btn{
     display:inline-flex; align-items:center; justify-content:center; gap:8px;
     background:none; border:1px solid rgba(242,233,211,0.35);
-    color:var(--paper);
+    color:var(--paper); text-decoration:none;
     font-family:var(--font-body); font-size:0.82rem; font-weight:600;
     padding:9px 12px; border-radius:20px; cursor:pointer;
     transition:background .15s ease, color .15s ease, border-color .15s ease;
@@ -393,6 +393,9 @@
     <nav class="chapters" id="chapterNav" aria-label="Capítulos da cartilha"></nav>
 
     <div class="side-actions">
+      <a class="side-btn" id="btnMeuMaterial" href="#" style="display:none;">
+        → Meu material de aula
+      </a>
       <button class="side-btn" id="btnPrint" type="button">
         <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false">
           <path d="M4 6V2h8v4M4 12H2V7h12v5h-2M4 10h8v4H4z" stroke="currentColor" stroke-width="1.4"
@@ -1088,6 +1091,20 @@
     else if(mq.addListener)  mq.addListener(onPrintChange);
   }
   document.getElementById('btnPrint').addEventListener('click', () => window.print());
+
+  // ---------- link para o material do aluno ----------
+  /* A cartilha é igual para todos, então ela não sabe sozinha de qual aluno
+     se trata. Quem resolve isso é a própria URL: mandando o link como
+     index.html?aluno=maria, o botão abaixo aparece apontando para a pasta
+     daquele aluno. Sem o parâmetro (link genérico, de divulgação), o botão
+     simplesmente não aparece. */
+  (function(){
+    const aluno = new URLSearchParams(location.search).get('aluno');
+    if(!aluno) return;
+    const btn = document.getElementById('btnMeuMaterial');
+    btn.href = 'alunos/' + encodeURIComponent(aluno) + '/';
+    btn.style.display = '';
+  })();
 
   // ---------- diagramas de acorde ----------
   /* O desenho mostra 10 teclas brancas seguidas, de Dó a Mi. Os acordes

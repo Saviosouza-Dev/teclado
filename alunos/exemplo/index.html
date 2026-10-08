@@ -106,6 +106,17 @@ const ALUNO = 'Exemplo';
 document.getElementById('nomeAluno').textContent = ALUNO;
 document.title = ALUNO + ' — Material das aulas';
 
+/* O botão de volta leva ?aluno=<pasta> pra cartilha, pra ela saber de quem
+   é a vez e mostrar o botão "Meu material de aula" de volta pra cá — sem
+   isso o aluno chega na cartilha e perde o caminho de volta. A pasta sai da
+   própria URL, então não precisa repetir o nome aqui. */
+(function(){
+  const partes = location.pathname.split('/').filter(Boolean);
+  if(partes.length && /\.html?$/i.test(partes[partes.length - 1])) partes.pop();
+  const slug = partes[partes.length - 1];
+  if(slug) document.querySelector('.btn-cartilha').href = '../../?aluno=' + encodeURIComponent(slug);
+})();
+
 const MESES = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
 
 /* Nome de arquivo esperado: AAAA-MM-DD-titulo-com-hifens.html
