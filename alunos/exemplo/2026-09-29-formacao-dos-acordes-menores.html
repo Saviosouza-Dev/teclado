@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Formação dos acordes menores</title>
+
+<meta name="theme-color" content="#4A3220">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F2E9D3; --paper-deep:#E9DCBC; --ink:#3B2A1B; --ink-soft:#6B5340;
+    --wood-deep:#4A3220; --wood-light:#C99A5B; --brass:#B8862E;
+    --sage:#4B6B4F; --sage-deep:#33492F; --rose:#8C3B2E; --line:rgba(59,42,27,0.18);
+    --font-display:'Fraunces',Georgia,serif; --font-body:'Work Sans',-apple-system,sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--paper); color:var(--ink); font-family:var(--font-body); line-height:1.6;
+    background-image:radial-gradient(circle at 1px 1px, rgba(59,42,27,0.05) 1px, transparent 0);
+    background-size:22px 22px;
+  }
+  h1,h2,h3{font-family:var(--font-display); color:var(--wood-deep); margin:0 0 .4em; font-weight:600;}
+  h2{ font-size:1.35rem; margin-top:1.6em; }
+  h3{ font-size:1.12rem; margin-top:1.6em; }
+  h3 .cifra{ font-family:var(--font-body); font-size:.78rem; font-weight:700; color:var(--ink-soft); }
+  p{ margin:0 0 1em; }
+  a{ color:var(--wood-deep); }
+
+  header.topo{ background:var(--wood-deep); color:var(--paper); padding:26px 20px; }
+  .topo .dentro{ max-width:720px; margin:0 auto; }
+  .topo h1{ color:var(--paper); font-size:clamp(1.6rem,5vw,2.2rem); margin:.15em 0 .5em; }
+  .voltar{
+    display:inline-flex; align-items:center; gap:8px;
+    background:none; border:1px solid rgba(242,233,211,.4); color:var(--paper);
+    padding:9px 16px; border-radius:20px; text-decoration:none; font-size:.84rem; font-weight:600;
+  }
+  .voltar:hover{ background:var(--brass); color:var(--wood-deep); border-color:var(--brass); }
+
+  main{ max-width:720px; margin:0 auto; padding:30px 20px 60px; }
+
+  .dica{
+    border-left:3px solid var(--sage); background:rgba(75,107,79,.08);
+    padding:14px 16px; border-radius:0 4px 4px 0; margin:20px 0;
+  }
+  .dica b{ color:var(--sage-deep); }
+  .atencao{
+    border-left:3px solid var(--rose); background:rgba(140,59,46,.07);
+    padding:14px 16px; border-radius:0 4px 4px 0; margin:20px 0;
+  }
+  .atencao b{ color:var(--rose); }
+
+  .praticar{
+    background:var(--paper-deep); border:1px solid var(--line); border-radius:4px;
+    padding:20px 24px; margin:22px 0; box-shadow:4px 4px 0 rgba(59,42,27,.10);
+  }
+  .praticar h3{ margin-top:0; }
+  .praticar ol{ margin:0; padding-left:20px; }
+  .praticar li{ margin-bottom:10px; }
+
+  footer{ max-width:720px; margin:0 auto; padding:0 20px 40px; color:var(--ink-soft); font-size:.82rem; }
+
+  /* ---- nav rápida entre as sete notas ---- */
+  .nav-rapida{
+    font-size:.86rem; color:var(--ink-soft); background:var(--paper-deep);
+    border:1px solid var(--line); border-radius:20px; padding:9px 16px; margin:18px 0;
+  }
+  .nav-rapida a{ font-weight:600; text-decoration:none; }
+  .nav-rapida a:hover{ text-decoration:underline; }
+
+  /* ---- fileira da escala (graus 1 a 8, com os intervalos T/ST entre eles) ---- */
+  .escala-fileira{ display:flex; align-items:center; flex-wrap:wrap; gap:3px; margin:16px 0; }
+  .grau{
+    display:flex; flex-direction:column; align-items:center; min-width:38px;
+    padding:6px 5px; border-radius:4px; background:var(--paper-deep); border:1px solid var(--line);
+  }
+  .grau .num{ font-size:.62rem; color:var(--ink-soft); font-weight:700; line-height:1.4; }
+  .grau .nome{ font-family:var(--font-display); font-weight:600; color:var(--wood-deep); font-size:.98rem; }
+  .grau-acorde{ background:rgba(184,134,46,.22); border-color:var(--brass); }
+  .grau-acorde .nome{ color:var(--rose); }
+  .intervalo{ font-size:.66rem; font-weight:700; color:var(--ink-soft); padding:0 1px; flex-shrink:0; }
+
+  .teclado-wrap{ margin:14px 0 6px; }
+  .acorde-resultado{ font-size:.95rem; }
+  .nota-secao{ border-top:1px solid var(--line); padding-top:4px; margin-top:34px; }
+  .nota-secao:first-of-type{ border-top:none; margin-top:14px; }
+
+  @media print{
+    body{ background:#fff; background-image:none; }
+    header.topo{ background:#fff; color:#000; padding:0 0 12px; border-bottom:2px solid #4A3220; }
+    .topo h1{ color:#000; }
+    .voltar, .nav-rapida{ display:none; }
+    .praticar{ box-shadow:none; background:#fff; }
+    .dica,.atencao{ background:#fff; }
+  }
+</style>
+</head>
+<body>
+
+<header class="topo">
+  <div class="dentro">
+    <h1>Formação dos acordes menores</h1>
+
+    <a class="voltar" href="./">← Todos os meus materiais</a>
+  </div>
+</header>
+
+<main>
+
+  <p>Na aula passada vimos de onde vem o acorde Maior: ele nasce da escala
+  Maior, nos graus 1, 3 e 5. O acorde <b>menor</b> — de som mais triste e
+  fechado — nasce exatamente da mesma forma, só que de uma escala diferente:
+  a escala <b>menor</b>. A receita dos graus continua igual; muda só a
+  fórmula que monta a escala por baixo.</p>
+
+  <h2>O que é um acorde</h2>
+
+  <p>Acorde é um conjunto de três ou mais notas tocadas <b>ao mesmo tempo</b>,
+  formando um som cheio. O tipo mais simples se chama <b>tríade</b> e usa três
+  notas tiradas de uma escala: a primeira nota (a <b>tônica</b>, que dá nome ao
+  acorde), a terceira e a quinta. É por isso que todo acorde menor — Cm, Dm,
+  Em, Fm, Gm, Am, Bm — segue a mesma receita: <b>grau 1, grau 3 e grau 5</b> da
+  escala menor daquela nota.</p>
+
+  <div class="dica">
+    <b>Em uma frase:</b> acorde menor = graus 1-3-5 da escala menor da própria
+    nota. A diferença para o Maior está só na escala — a receita dos graus é
+    sempre a mesma.
+  </div>
+
+  <h2>A fórmula da escala menor</h2>
+
+  <p>Assim como a Maior, a escala menor natural tem uma fórmula fixa de
+  distâncias entre as notas — só que com o semitom numa posição diferente:</p>
+
+  <p style="text-align:center; font-family:var(--font-display); font-size:1.15rem; color:var(--wood-deep);">
+    T – ST – T – T – ST – T – T
+  </p>
+
+  <p><b>T</b> é tom (ande duas teclas, pulando uma — branca ou preta, não
+  importa). <b>ST</b> é semitom (ande para a tecla vizinha mais próxima, sem
+  pular nenhuma). Comece em qualquer nota e siga essa sequência: o resultado é
+  sempre uma escala menor.</p>
+
+  <div class="dica">
+    <b>Compare com a Maior:</b> a fórmula é quase a mesma — só os dois
+    semitons (ST) que mudam de lugar, saindo do grau 3-4 e 7-8 e indo para o
+    grau 2-3 e 5-6. É essa mudança de posição que deixa a escala — e o acorde —
+    com outra cara.
+  </div>
+
+  <div class="atencao">
+    <b>Armadilha comum:</b> entre Mi–Fá e entre Si–Dó não existe tecla preta no
+    meio. Ali, duas teclas brancas vizinhas já são um semitom (ST), não um tom —
+    é a única hora em que "tecla branca seguida de tecla branca" não significa
+    tom.
+  </div>
+
+  <div class="nav-rapida">
+    Ir direto para:
+    <a href="#nota-C">Dó</a> ·
+    <a href="#nota-D">Ré</a> ·
+    <a href="#nota-E">Mi</a> ·
+    <a href="#nota-F">Fá</a> ·
+    <a href="#nota-G">Sol</a> ·
+    <a href="#nota-A">Lá</a> ·
+    <a href="#nota-B">Si</a>
+  </div>
+
+  <h2>As sete escalas menores e o acorde de cada uma</h2>
+
+  <p>Para cada nota, veja a escala completa (os 8 graus, com os intervalos T e
+  ST entre eles), o teclado com o acorde já formado e quais graus — e quais
+  dedos da mão direita — tocam cada nota do acorde.</p>
+
+  <div id="escalas">
+    <noscript><p><b>Ative o JavaScript</b> no navegador para ver as escalas e os
+    diagramas de teclado desta página — eles são montados automaticamente.</p></noscript>
+  </div>
+
+  <div class="praticar">
+    <h3>Para praticar até a próxima aula</h3>
+    <ol>
+      <li>Escolha uma nota por dia e toque a escala menor subindo e descendo,
+      falando "tom" ou "semitom" a cada passo.</li>
+      <li>Toque a mesma nota primeiro na escala Maior, depois na menor, e
+      repare onde a diferença aparece no ouvido — é só o grau 3 que muda de
+      lugar entre uma e outra.</li>
+      <li>Depois de tocar a escala, pare nos graus 1, 3 e 5 e toque os três
+      juntos: esse é o acorde menor daquela nota. Dedos 1-3-5 da mão direita,
+      sempre a mesma combinação.</li>
+      <li>No fim da semana, tente montar de cabeça — sem olhar a página — o
+      acorde menor de três notas diferentes.</li>
+    </ol>
+  </div>
+
+  <div class="dica">
+    <b>Agora você tem as duas receitas</b> — Maior e menor — que formam todo
+    acorde que você já toca. O resto é treino: repetir a fórmula em cada nota
+    até sair sem pensar.
+  </div>
+
+</main>
+
+<footer>
+  Material da aula — guarde o link, ele fica sempre disponível.
+</footer>
+
+<script>
+/* Toda escala menor natural é T-ST-T-T-ST-T-T a partir da tônica — a mesma
+   fórmula da Maior, só com os dois semitons em outra posição. Os nomes das
+   notas já vêm com o acidente correto (sustenido ♯ ou bemol ♭) porque a
+   grafia de cada escala menor é fixa — é a mesma usada em qualquer cifra. */
+const INTERVALOS = ['T','ST','T','T','ST','T','T'];
+
+const ESCALAS = [
+  { abbr:'Cm', semitom:0,  notas:['Dó','Ré','Mi♭','Fá','Sol','Lá♭','Si♭','Dó'] },
+  { abbr:'Dm', semitom:2,  notas:['Ré','Mi','Fá','Sol','Lá','Si♭','Dó','Ré'] },
+  { abbr:'Em', semitom:4,  notas:['Mi','Fá♯','Sol','Lá','Si','Dó','Ré','Mi'] },
+  { abbr:'Fm', semitom:5,  notas:['Fá','Sol','Lá♭','Si♭','Dó','Ré♭','Mi♭','Fá'] },
+  { abbr:'Gm', semitom:7,  notas:['Sol','Lá','Si♭','Dó','Ré','Mi♭','Fá','Sol'] },
+  { abbr:'Am', semitom:9,  notas:['Lá','Si','Dó','Ré','Mi','Fá','Sol','Lá'] },
+  { abbr:'Bm', semitom:11, notas:['Si','Dó♯','Ré','Mi','Fá♯','Sol','Lá','Si'] }
+];
+
+/* ---------- monta teclas brancas/pretas de uma janela do teclado, em
+   semitons absolutos (não module por 12: assim a ordem da esquerda pra
+   direita fica sempre crescente, mesmo cruzando a oitava) ---- */
+const TONS_BRANCOS = [0,2,4,5,7,9,11];
+function ehBranca(semitomAbs){
+  const m = ((semitomAbs % 12) + 12) % 12;
+  return TONS_BRANCOS.indexOf(m) !== -1;
+}
+function montarJanela(inicioAbs, fimAbs){
+  const brancas = [], pretas = [];
+  for(let abs = inicioAbs; abs <= fimAbs; abs++){
+    if(ehBranca(abs)) brancas.push(abs); else pretas.push(abs);
+  }
+  return { brancas, pretas };
+}
+
+/* No teclado real as teclas pretas vêm sempre em grupos de 2 (Dó♯-Ré♯) ou de
+   3 (Fá♯-Sol♯-Lá♯) — nunca soltas. Se a janela do diagrama começar ou
+   terminar no meio de um grupo, ele aparece cortado: uma preta sozinha, ou
+   duas de um grupo que tem três. Por isso a janela nunca começa ou termina
+   em qualquer nota — ela recua até a tecla branca seguinte a um grupo (Dó ou
+   Fá, que não têm preta antes) e avança até a tecla branca anterior a um
+   grupo (Mi ou Si, que não têm preta depois). Assim todo grupo mostrado vem
+   sempre inteiro. */
+const JANELA_INICIO_OK = [0,5];    // Dó, Fá — sem preta antes
+const JANELA_FIM_OK     = [4,11];  // Mi, Si — sem preta depois
+function inicioSeguro(abs){
+  let s = abs;
+  while(JANELA_INICIO_OK.indexOf(((s % 12) + 12) % 12) === -1) s--;
+  return s;
+}
+function fimSeguro(abs){
+  let e = abs;
+  while(JANELA_FIM_OK.indexOf(((e % 12) + 12) % 12) === -1) e++;
+  return e;
+}
+
+/* graus de qualquer escala menor natural, em semitons a partir da tônica —
+   fixo, é a própria fórmula T-ST-T-T-ST-T-T escrita em números. */
+const GRAUS_OFFSET = [0,2,3,5,7,8,10,12];
+
+/* ---------- diagrama do teclado com a escala inteira: toda nota (branca ou
+   preta) ganha o nome escrito embaixo, e os graus 1, 3 e 5 ganham também o
+   destaque dourado com o dedo da mão direita. Rotular todas elas evita que
+   uma tecla preta fora do acorde fique "muda" no desenho — o aluno sempre
+   sabe que nota é aquela. ---- */
+function diagramaAcorde(raizAbs, notas, abbr){
+  const grausAbs = GRAUS_OFFSET.map(off => raizAbs + off);     // os 8 graus da escala
+  const { brancas, pretas } = montarJanela(inicioSeguro(grausAbs[0]), fimSeguro(grausAbs[7]));
+  const W = 30, H = 100, X0 = 6, Y0 = 6;
+  const largura = X0 * 2 + brancas.length * W;
+  const altura  = Y0 + H + 38;
+  const acordeAbs = [grausAbs[0], grausAbs[2], grausAbs[4]];   // graus 1, 3 e 5 = o acorde
+  const dedoDoGrau = {};
+  dedoDoGrau[acordeAbs[0]] = 1; dedoDoGrau[acordeAbs[1]] = 3; dedoDoGrau[acordeAbs[2]] = 5;
+  const tid = 'cd-' + abbr;
+
+  let svg = '<svg width="' + largura + '" height="' + altura + '" viewBox="0 0 ' + largura + ' ' + altura
+          + '" role="img" aria-labelledby="' + tid + '" xmlns="http://www.w3.org/2000/svg">';
+  svg += '<title id="' + tid + '">Escala de ' + notas[0] + ' menor no teclado, com o acorde em destaque: '
+       + notas[0] + ' com o dedo 1, ' + notas[2] + ' com o dedo 3, ' + notas[4] + ' com o dedo 5.</title>';
+
+  brancas.forEach((abs, i) => {
+    svg += '<rect x="' + (X0 + i*W) + '" y="' + Y0 + '" width="' + W + '" height="' + H
+         + '" fill="#FBF7EC" stroke="#3B2A1B" stroke-width="1.2"/>';
+  });
+  acordeAbs.forEach(abs => {
+    const i = brancas.indexOf(abs);
+    if(i !== -1){
+      svg += '<rect x="' + (X0 + i*W) + '" y="' + Y0 + '" width="' + W + '" height="' + H
+           + '" fill="#B8862E" opacity="0.32"/>';
+    }
+  });
+  const bw = 16, bh = H * 0.6;
+  pretas.forEach(abs => {
+    const i = brancas.indexOf(abs - 1);
+    const cx = X0 + (i + 1) * W;
+    svg += '<rect x="' + (cx - bw/2) + '" y="' + Y0 + '" width="' + bw + '" height="' + bh
+         + '" rx="1.5" fill="#3B2A1B"/>';
+    if(acordeAbs.indexOf(abs) !== -1){
+      svg += '<rect x="' + (cx - bw/2) + '" y="' + Y0 + '" width="' + bw + '" height="' + bh
+           + '" rx="1.5" fill="#B8862E" opacity="0.55"/>';
+    }
+  });
+
+  /* duas notas vizinhas por um semitom (os dois ST da fórmula) ficam perto
+     demais no teclado para os nomes caberem lado a lado — por isso o nome
+     intercala entre duas linhas sempre que o vizinho anterior está muito
+     próximo, em vez de ficar tudo numa fileira só e colar um nome no outro. */
+  const rowY = [Y0 + H + 17, Y0 + H + 29];
+  let linhaAnterior = 0, cxAnterior = null;
+  grausAbs.forEach((abs, k) => {
+    const nome = notas[k];
+    const ehAcorde = acordeAbs.indexOf(abs) !== -1;
+    const i = brancas.indexOf(abs);
+    let cx, cy;
+    if(i !== -1){ cx = X0 + i*W + W/2; cy = Y0 + H - 18; }
+    else { const j = brancas.indexOf(abs - 1); cx = X0 + (j + 1) * W; cy = Y0 + bh - 15; }
+
+    const linha = (cxAnterior !== null && Math.abs(cx - cxAnterior) < 34) ? (1 - linhaAnterior) : 0;
+    const y = rowY[linha];
+    linhaAnterior = linha; cxAnterior = cx;
+
+    if(ehAcorde){
+      svg += '<circle cx="' + cx + '" cy="' + cy + '" r="10" fill="#B8862E" stroke="#4A3220" stroke-width="1"/>';
+      svg += '<text x="' + cx + '" y="' + (cy + 4) + '" font-family="Work Sans" font-size="11.5" font-weight="700" '
+           + 'fill="#4A3220" text-anchor="middle">' + dedoDoGrau[abs] + '</text>';
+      svg += '<text x="' + cx + '" y="' + y + '" font-family="Work Sans" font-size="9.5" font-weight="700" '
+           + 'fill="#8C3B2E" text-anchor="middle">' + nome + '</text>';
+    } else {
+      svg += '<text x="' + cx + '" y="' + y + '" font-family="Work Sans" font-size="9" font-weight="500" '
+           + 'fill="#6B5340" text-anchor="middle">' + nome + '</text>';
+    }
+  });
+  svg += '</svg>';
+  return svg;
+}
+
+/* ---------- fileira com os 8 graus da escala e os intervalos T/ST entre eles ---- */
+function fileiraEscala(notas){
+  let html = '<div class="escala-fileira">';
+  notas.forEach((nota, i) => {
+    const grau = i + 1;
+    const ehAcorde = (grau === 1 || grau === 3 || grau === 5);
+    html += '<div class="grau' + (ehAcorde ? ' grau-acorde' : '') + '">'
+          + '<span class="num">' + grau + '</span><span class="nome">' + nota + '</span></div>';
+    if(i < notas.length - 1){
+      html += '<span class="intervalo">' + INTERVALOS[i] + '</span>';
+    }
+  });
+  html += '</div>';
+  return html;
+}
+
+const container = document.getElementById('escalas');
+ESCALAS.forEach(e => {
+  const raiz = e.notas[0], terca = e.notas[2], quinta = e.notas[4];
+  const idNota = e.abbr.replace('m', '');
+  const sec = document.createElement('div');
+  sec.className = 'nota-secao';
+  sec.id = 'nota-' + idNota;
+  sec.innerHTML =
+      '<h3>' + raiz + ' menor <span class="cifra">(' + e.abbr + ')</span></h3>'
+    + fileiraEscala(e.notas)
+    + '<div class="teclado-wrap">' + diagramaAcorde(e.semitom, e.notas, e.abbr) + '</div>'
+    + '<p class="acorde-resultado">Acorde de <b>' + raiz + ' menor</b> = graus <b>1, 3 e 5</b> da escala → '
+      + '<b>' + raiz + '</b>, <b>' + terca + '</b>, <b>' + quinta + '</b>.<br>'
+      + 'Mão direita: dedo <b>1</b> em ' + raiz + ', dedo <b>3</b> em ' + terca + ', dedo <b>5</b> em ' + quinta + '.</p>';
+  container.appendChild(sec);
+});
+</script>
+
+</body>
+</html>
